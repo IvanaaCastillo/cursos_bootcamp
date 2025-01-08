@@ -3,7 +3,7 @@ import { User } from "../models/User.model.js";
 
 
 //Create lo crea sequelize
-export const createBootcamp = async (req, res) => {
+export const createBootcamp = async (req, res, next) => {
     try {
         const bootcamp = await Bootcamp.create(req.body)
 
@@ -13,7 +13,7 @@ export const createBootcamp = async (req, res) => {
             data: bootcamp
         })
     } catch (error) {
-        console.error(error)
+        next(error)
 
         res.status(500).json({
             message: 'Error al crear un bootcamp',
@@ -24,7 +24,7 @@ export const createBootcamp = async (req, res) => {
 }
 
 
-export const addUser = async (req, res) => {
+export const addUser = async (req, res, next) => {
     try {
         const { bootcampId, userId } = req.body;  
         const bootcamp = await Bootcamp.findByPk(bootcampId, {
@@ -50,7 +50,7 @@ export const addUser = async (req, res) => {
             data: { bootcamp, user },
         });
     } catch (error) {
-        console.error(error);
+        next(error);
         res.status(500).json({
             message: 'Error al agregar el usuario al Bootcamp',
             status: 500,
@@ -71,8 +71,8 @@ export const findById = async (req, res) => {
             data: bootcamp,
         });
     } catch (error) {
-        console.error(error);
-            res.status(500).json({
+        next(error);
+        res.status(500).json({
             message: "Error al buscar el bootcamp",
             status: 500,
             data: null,
@@ -104,17 +104,17 @@ export const findAll = async (req, res) => {
         }
 
         res.status(200).json({
-        message: 'Usuarios obtenidos con éxito',
-        status: 200,
-        data: bootcamps,
+            message: 'Usuarios obtenidos con éxito',
+            status: 200,
+            data: bootcamps,
         });
 
     } catch (error) {
-        console.error(error);
+        next(error);
         res.status(500).json({
-        message: 'Error al obtener los usuarios',
-        status: 500,
-        data: null,
+            message: 'Error al obtener los usuarios',
+            status: 500,
+            data: null,
         });
     }
 };
@@ -134,7 +134,7 @@ export const updateBootcamp = async (req, res) => {
             data: bootcamp,
         });
     } catch (error) {
-
+        next(error)
         res.status(500).json({
             message: "Error al actualizar el bootcamp",
             status: 500,
@@ -154,7 +154,7 @@ export const deleteBootcampById = async (req, res) => {
             status: 200,
         });
     } catch (error) {
-            
+        next(error)
         res.status(500).json({
             message: "Error al eliminar el bootcamp",
             status: 500,

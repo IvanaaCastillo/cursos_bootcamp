@@ -3,7 +3,7 @@ import { User } from "../models/User.model.js";
 
 
 
-export const createUser = async (req, res) => {
+export const createUser = async (req, res, next) => {
     try {
 
         const user = await User.create(req.body)
@@ -14,7 +14,7 @@ export const createUser = async (req, res) => {
             data: user
         })
     } catch (error) {
-        console.error(error);
+        next(error);
         res.status(500).json({
             message: 'Error al crear el usuario',
             status: 500,
@@ -25,7 +25,7 @@ export const createUser = async (req, res) => {
 }
 
 
-export const findUserById = async (req, res) => {
+export const findUserById = async (req, res, next) => {
     try {
         const { id } = req.params;
     
@@ -55,7 +55,7 @@ export const findUserById = async (req, res) => {
             data: user, 
         });
     } catch (error) {
-        console.error(error);
+        next(error);
         res.status(500).json({
             message: "Error al obtener el usuario y sus bootcamps",
             status: 500,
@@ -65,7 +65,7 @@ export const findUserById = async (req, res) => {
 };
 
 
-export const findAll = async (req, res) => {
+export const findAll = async (req, res, next) => {
     try {
         const users = await User.findAll({
             attributes: ["id", "firstName", "lastName", "email"], 
@@ -93,7 +93,7 @@ export const findAll = async (req, res) => {
             data: users,
         });
     } catch (error) {
-        console.error(error);
+        next(error);
         res.status(500).json({
             message: "Error al obtener los usuarios",
             status: 500,
@@ -103,7 +103,7 @@ export const findAll = async (req, res) => {
 };
 
 
-export const updateUserById = async (req, res) => {
+export const updateUserById = async (req, res, next) => {
     try {
         const { id } = req.params;
 
@@ -118,7 +118,7 @@ export const updateUserById = async (req, res) => {
             data: user,
         });
     } catch (error) {
-
+        next(error);
         res.status(500).json({
             message: "Error al actualizar el usuario",
             status: 500,
@@ -128,7 +128,7 @@ export const updateUserById = async (req, res) => {
 }
 
 
-export const deleteUserById = async (req, res) => {
+export const deleteUserById = async (req, res, next) => {
     try {
         const { id } = req.params;
         await User.destroy({ where: { id } });
@@ -138,7 +138,7 @@ export const deleteUserById = async (req, res) => {
             status: 200,
         });
     } catch (error) {
-
+        next(error);
         res.status(500).json({
             message: "Error al eliminar el usuario",
             status: 500,
