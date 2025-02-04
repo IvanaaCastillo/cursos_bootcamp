@@ -1,25 +1,25 @@
 import {Op} from 'sequelize'
-import { NotFoundError, ValidationError } from "../../errors/typeErrors.js"
+import { NotFoundError, ValidationError } from "../../errors/TypeError.js"
 
 export const isArrayValidate = (data) => {
     if (!Array.isArray(data))
         throw new ValidationError(
         "The entered data is not an array."
     );
-}
+};
 
 
 export const isEmptyData = (data) => {
     if(!data || data.length === 0) {
         throw new ValidationError("The entered data is empty.")
     }  
-}
+};
 
 export const isEmptyResponseData = (data) => {
     if (!data || data.length === 0) {
-      throw new NotFoundError("The requested data was not found.");
+        throw new NotFoundError("The requested data was not found.");
     }  
-}
+};
 
 /**
  * Valida si el dato está duplicado
@@ -29,6 +29,8 @@ export const isEmptyResponseData = (data) => {
  * @param {string} excluidID - ID en formato UUID que será excluida de esta validación. Por defecto es null 
  * @throws {ValidationError} - Si el valor existe arrojara un error de validación 
  */
+
+
 export const validateExistData = async(Modelo, data, fields, excluidID = null ) => {
     const duplicatedFlieds = [];
 
@@ -39,7 +41,7 @@ export const validateExistData = async(Modelo, data, fields, excluidID = null ) 
             const whereClause = { [field]: data[field] }
             
             if(excluidID) {
-                whereClause.id = { [Op.ne]: excluidID } //Op.ne => Operador (Sequelize) Not Equal(ne)
+                whereClause.id = { [Op.ne]: excluidID } 
             }
             
             const existData = await Modelo.findOne({ where: whereClause})
@@ -55,8 +57,8 @@ export const validateExistData = async(Modelo, data, fields, excluidID = null ) 
     } 
 }
 
+
 export const emailContent=(to, subject, html) => {
     if (!to || !subject || !html) throw new ValidationError('Todos los campos del email deben ser cubiertos')
     return { to, subject, html}
-}
- 
+};

@@ -4,8 +4,8 @@ import { login, register } from '../controllers/auth.controller.js';
 
 const router = Router();
 
-router.post('/usuario', register);
-router.post('/usuario/login', login);
+router.post('/signup', register);
+router.post('/signin', login);
 
 
 

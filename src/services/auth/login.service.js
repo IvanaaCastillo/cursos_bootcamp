@@ -1,8 +1,6 @@
 import jwt from 'jsonwebtoken';
-
-import { Usuario } from '../../models/Usuario.model.js';
-import { isNotFound } from '../../utils/validators/general.js';
-import { isNotMatchedPassword } from '../../utils/validators/password.js';
+import { User } from '../../models/User.model.js';
+import { isNotFound, isNotMatchedPassword } from '../../utils/validators/authValidations.js';
 import { comparePassword } from './hash.service.js';
 import { config } from '../../config/env.config.js';
 import { normalizeUserPrivateData } from '../../utils/normalize/user.js';
@@ -13,7 +11,7 @@ const { secretKey } = config;
 export const loginService = async({ email, password }) => {
 
     try {
-        const user = await Usuario.findOne({ 
+        const user = await User.findOne({ 
             where: { email }, 
             attributes: {
                 exclude: ['resetPasswordExpire', 'resetPasswordToken']
