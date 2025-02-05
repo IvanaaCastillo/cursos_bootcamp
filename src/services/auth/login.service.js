@@ -18,7 +18,7 @@ export const loginService = async({ email, password }) => {
             } 
         });
         isNotFound(user);
-        const passwordMatch = await comparePassword(password, user.password);
+        const passwordMatch = await comparePassword (password, user.password);
         isNotMatchedPassword(passwordMatch);
 
         const privateUser = normalizeUserPrivateData(user);

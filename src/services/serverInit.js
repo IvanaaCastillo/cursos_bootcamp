@@ -5,11 +5,7 @@ export const serverInit = async(app, port) => {
         console.log('Verificando conexión a la base de datos');
         await dbConnect()
         app.listen(port, () => {
-            try {
-            console.log('El transportador de correos está disponible para utilizarlo')
-            } catch (error) {
-                console.error('Error al verificar la conexión de correo:', error);
-            }
+
             console.log(`Servidor corriendo en el puerto ${port} 👾`);
         })
     } catch (error) {

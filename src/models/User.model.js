@@ -40,7 +40,6 @@ export const initUser = (dbConfig) => {
                 },
             }
         },
-        
         email: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -50,6 +49,10 @@ export const initUser = (dbConfig) => {
                 isEmail: { msg: "El correo electrónico ingresado no es válido." },
                 },
             },
+        password:{
+                type:DataTypes.STRING,
+                allowNull: false,
+                }
             },
             {
                 sequelize: dbConfig,

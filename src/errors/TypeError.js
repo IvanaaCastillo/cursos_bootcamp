@@ -22,12 +22,6 @@ export class NotFoundError extends CustomError {
     }
 };
 
-export class MailError extends CustomError {
-    constructor(message, details) {
-        super(message || "Error al enviar el email", 500, details);
-    }
-};
-
 
 export class AuthError extends CustomError {
     constructor(message, statusCode, details) {

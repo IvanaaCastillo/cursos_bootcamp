@@ -8,7 +8,7 @@ export const registerService = async(data, Model) => {
         const [userGeneralData, email, password] = destructuringUserData(data);
 
         await ensureEmailNotTaken(Model, email);
-        validatePassword(password, userGeneralData.fecha_nacimiento);
+        validatePassword(password, userGeneralData);
 
         const hashedPassword = await hashPassword(password);
         const userData = normalizeUserData(

@@ -4,20 +4,20 @@ import { NotFoundError, ValidationError } from "../../errors/TypeError.js"
 export const isArrayValidate = (data) => {
     if (!Array.isArray(data))
         throw new ValidationError(
-        "The entered data is not an array."
+        'Los datos ingresados no son un array'
     );
 };
 
 
 export const isEmptyData = (data) => {
     if(!data || data.length === 0) {
-        throw new ValidationError("The entered data is empty.")
+        throw new ValidationError('Los datos ingresados están vacíos')
     }  
 };
 
 export const isEmptyResponseData = (data) => {
     if (!data || data.length === 0) {
-        throw new NotFoundError("The requested data was not found.");
+        throw new NotFoundError('No se encontraron los datos solicitados');
     }  
 };
 
@@ -53,12 +53,6 @@ export const validateExistData = async(Modelo, data, fields, excluidID = null ) 
     
     if(duplicatedFlieds.length > 0) {
         const fieldsString = duplicatedFlieds.map(field => `"${field}"`).join(', ');
-        throw new ValidationError(`The fields ${fieldsString} are already in use by another record in '${Modelo.name}'.`)
+        throw new ValidationError(`Los campos ${fieldsString} ya están registrados'${Modelo.name}'.`)
     } 
-}
-
-
-export const emailContent=(to, subject, html) => {
-    if (!to || !subject || !html) throw new ValidationError('Todos los campos del email deben ser cubiertos')
-    return { to, subject, html}
 };

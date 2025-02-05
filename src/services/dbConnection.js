@@ -15,4 +15,4 @@ export const dbConnect = async() =>{
         console.error('No pudimos conectarnos a la DB ☠️', error);
         process.exit(1)
     }
-}
+};

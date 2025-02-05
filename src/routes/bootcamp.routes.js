@@ -7,16 +7,17 @@ import {
     findAll,
     findById
 } from '../controllers/bootcamp.controller.js';
+import { authMiddleware } from '../middlewares/authMiddleware.js';
 
 
 const router = Router();
 
-router.post('/bootcamp', createBootcamp);
-router.post('/bootcamp/:bootcampId', addUser);
+router.post('/bootcamp', authMiddleware, createBootcamp);
+router.post('/bootcamp/:bootcampId', authMiddleware, addUser);
 router.get('/bootcamp', findAll);
-router.get('/bootcamp/:id', findById);
-router.put('/bootcamp/:id', updateBootcamp);
-router.delete('/bootcamp/:id', deleteBootcampById);
+router.get('/bootcamp/:id', authMiddleware, findById);
+router.put('/bootcamp/:id', authMiddleware, updateBootcamp);
+router.delete('/bootcamp/:id', authMiddleware, deleteBootcampById);
 
 
 
