@@ -60,7 +60,7 @@ export const addUser = async (req, res, next) => {
 };
 
 
-export const findById = async (req, res) => {
+export const findById = async (req, res, next) => {
     try {
         const { id } = req.params;
         const bootcamp = await Bootcamp.findByPk(id)
