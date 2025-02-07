@@ -8,6 +8,7 @@ import {
     findById
 } from '../controllers/bootcamp.controller.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
+import { updateUser } from '../controllers/user.controller.js';
 
 
 const router = Router();

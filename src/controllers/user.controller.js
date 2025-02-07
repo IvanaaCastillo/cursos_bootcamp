@@ -125,7 +125,37 @@ export const updateUserById = async (req, res, next) => {
             data: null,
         });
     }
-}
+};
+
+
+export const updateUser = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const updateData = req.body;
+
+        if (updateData.password) {
+            updateData.password = await hashPassword(updateData.password);  
+        }
+
+        const [updateRows, [updatedUser]] = await User.update(updateData, {
+            where: { id },
+            returning: true,
+            attributes: { exclude: ['createdAt', 'updatedAt', 'deletedAt'] },
+        });
+
+        if (updateRows === 0) {
+            throw new Error(`No se encontró al usuario con el ID: ${id}`);
+        }
+
+        res.status(200).json({
+            message: "Usuario actualizado con éxito",
+            status: 200,
+            newData: updatedUser,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
 
 
 export const deleteUserById = async (req, res, next) => {
